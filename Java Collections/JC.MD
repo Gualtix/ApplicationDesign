@@ -1,10 +1,3 @@
----
-output:
-  html_document:
-    css: [./style.css]
----
-
-
 # Java Collections
 
 <p>
@@ -25,12 +18,8 @@ developers can use the concept of Parameterized Types (or Generics)
 to define the type of the elements of the collection.
 </p>
 
-- Definition
-
-
 
 # Features
-
 <ol>
   <li>Lorem ipsum dolor sit amet</li>
   <li>Consectetur adipiscing elit</li>
@@ -42,4 +31,4 @@ to define the type of the elements of the collection.
   <li>Eget porttitor lorem</li>
 </ol>
 
-- When is it Recommended to Use
+# When is it Recommended to Use
