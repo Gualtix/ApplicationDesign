@@ -108,8 +108,8 @@ suportred by the limitations of the hardware.
 
 # References:
 
-| Topic| Source | 
-| :--- | :----  |   
-| Iterable Interface in Java      | https://www.geeksforgeeks.org/iterable-interface-in-java/       | 
-| Iterable Definition   | https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html        |
-| Java Collection Core Concepts   | https://www.youtube.com/watch?v=Ma7u6KEKzPE&t=1784s        |
+| Topic                         | Source                                                            |
+| :---------------------------- | :---------------------------------------------------------------- |
+| Iterable Interface in Java    | https://www.geeksforgeeks.org/iterable-interface-in-java/         |
+| Iterable Definition           | https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html |
+| Java Collection Core Concepts | https://www.youtube.com/watch?v=Ma7u6KEKzPE&t=1784s               |
