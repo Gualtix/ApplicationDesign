@@ -47,6 +47,79 @@ public class DataEx
         }
     }
 
+
+    enum CrudOperation
+    {
+        LINKEDLIST 
+        {
+            public @Override  void add(Object Structure, Animal tmp) 
+            {List Dt = (List) Structure; Dt.add(tmp);}
+
+            public @Override void remove(Object tmp,int index) 
+            {List Dt = (List) tmp; Dt.remove(index);}
+
+            public @Override void update(Object Structure, Animal tmp) 
+            {List Dt = (List) Structure; Dt.set(0, tmp);}
+
+            public @Override void iterate(Object tmp) 
+            {
+                List Dt = (List) tmp;
+                for (Object Obj : Dt) 
+                {
+                    Animal An = (Animal) Obj;
+                    An.PrintAnimal();
+                }
+            }
+        },
+        ARRAYLIST 
+        {
+            public @Override  void add(Object Structure, Animal tmp) 
+            {List Dt = (List) Structure; Dt.add(tmp);}
+
+            public @Override void remove(Object tmp,int index) 
+            {List Dt = (List) tmp; Dt.remove(index);}
+
+            public @Override void update(Object Structure, Animal tmp) 
+            {List Dt = (List) Structure; Dt.set(0, tmp);}
+
+            public @Override void iterate(Object tmp) 
+            {
+                List Dt = (List) tmp;
+                for (Object Obj : Dt) 
+                {
+                    Animal An = (Animal) Obj;
+                    An.PrintAnimal();
+                }
+            }
+        },
+        VECTOR 
+        {
+            public @Override  void add(Object Structure, Animal tmp) 
+            {List Dt = (List) Structure; Dt.add(tmp);}
+
+            public @Override void remove(Object tmp,int index) 
+            {List Dt = (List) tmp; Dt.remove(index);}
+
+            public @Override void update(Object Structure, Animal tmp) 
+            {List Dt = (List) Structure; Dt.set(0, tmp);}
+
+            public @Override void iterate(Object tmp) 
+            {
+                List Dt = (List) tmp;
+                for (Object Obj : Dt) 
+                {
+                    Animal An = (Animal) Obj;
+                    An.PrintAnimal();
+                }
+            }
+        };
+    
+        public abstract void add(Object Structure, Animal tmp);
+        public abstract void remove(Object tmp,int index);
+        public abstract void update(Object Structure, Animal tmp);
+        public abstract void iterate(Object Structure);
+    }
+
     // CRUD
     public void add() throws IOException 
     {
@@ -55,10 +128,17 @@ public class DataEx
         Animal tmp = new Animal();
         Start("add");
 
+
+        CrudOperation.valueOf(this.CollectionType).add(obj, tmp);
+
+        End("add");
+
+        /*
         if(this.CollectionType.matches("LinkedList|ArrayList|Vector")){
             List test = (List) obj;
             test.add(tmp);
         }
+        */
 
         tmp.PrintAnimal();
         End("add");
