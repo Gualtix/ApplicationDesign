@@ -1,10 +1,8 @@
 package DataStructures;
 
 
-public class Animal {
-
-
-
+public class Animal implements Comparable 
+{
 
     public String ID;
     public String Name;
@@ -21,7 +19,30 @@ public class Animal {
     }
 
     // Overriding hashCode()
-    @Override public int hashCode() { return Integer.parseInt(this.ID);}
+    @Override public int hashCode() 
+    { 
+        return Integer.parseInt(this.ID);
+    }
+
+    // Overriding equals()
+    @Override public boolean equals(Object obj) 
+    { 
+        Animal a = (Animal) obj; 
+        return (this.ID == a.ID);
+    }
+
+    // Overriding toString()
+    @Override public String toString() 
+    { 
+        return "ID: " + this.ID + " Name: " + this.Name + " Type: " + this.Type;
+    }
+
+    // Overriding compareTo()
+    @Override public int compareTo(Object o) 
+    {
+        Animal a = (Animal) o;
+        return this.ID.compareTo(a.ID);
+    }
 
     public void PrintAnimal(){
         System.out.println("ID: "+this.ID);
@@ -50,33 +71,16 @@ public class Animal {
         System.out.println("");
     }
 
-    
-
     public Animal(){
 
         int min = 0;
         int max = random_names.length - 1;
             
-
         int index_one = (int)Math.floor(Math.random()*(max-min+1)+min);
         int index_two = (int)Math.floor(Math.random()*(max-min+1)+min);
 
         this.ID = Integer.toString(index_one);
         this.Name = random_names[index_one];
         this.Type = random_types[index_two];
-
-        /*
-        System.out.println("Enter the Animal ID: ");
-        Scanner sc = new Scanner(System.in);
-        String ID = sc. nextLine();
-
-        System.out.println("Enter the Animal Name: ");
-        String Name = sc. nextLine();
-
-        System.out.println("Enter the Animal Type: ");
-        String Type = sc. nextLine();
-
-        Animal tmp = new Animal(ID, Name, Type);
-        */
     }
 }

@@ -2,11 +2,17 @@ package DataStructures;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 import java.util.Vector;
 
 public class DataEx 
@@ -14,9 +20,15 @@ public class DataEx
     LinkedList<Animal> AnimaLinkedList = new LinkedList<>();
     ArrayList<Animal> AnimaArrayList  = new ArrayList<>();
     Vector<Animal> AnimaVector     = new Vector<>();
-    Hashtable<String, Animal> AnimaHashTable = new Hashtable<>();
     HashMap<String, Animal> AnimaHashMap = new HashMap<>();
+    Hashtable<String, Animal> AnimaHashTable = new Hashtable<>();
     LinkedHashMap<String, Animal> AnimaLinkedHashMap = new LinkedHashMap<>();
+    TreeMap<String, Animal> AnimaTreeMap = new TreeMap<>();
+    HashSet<Animal> AnimaHashSet = new HashSet<>();
+    LinkedHashSet<Animal> AnimaLinkedHashSet = new LinkedHashSet<>();
+    TreeSet<Animal> AnimaTreeSet = new TreeSet<>();
+    PriorityQueue<Animal> AnimaPriorityQueue = new PriorityQueue<>();
+
 
     public String CollectionType = "";
 
@@ -55,6 +67,17 @@ public class DataEx
                 return this.AnimaHashMap;
             case "LINKEDHASHMAP":
                 return this.AnimaLinkedHashMap;
+            case "TREEMAP":
+                return this.AnimaTreeMap;
+            case "HASHSET":
+                return this.AnimaHashSet;
+            case "LINKEDHASHSET":
+                return this.AnimaLinkedHashSet;
+            case "TREESET":
+                return this.AnimaTreeSet;
+            case "PRIORITYQUEUE":
+                return this.AnimaPriorityQueue;
+            
             default:
                 return null;
         }
@@ -115,7 +138,8 @@ public class DataEx
                 }
             }            
         },
-        HASHTABLE_HASHMAP_LINKEDHASHMAP
+
+        HASHTABLE_HASHMAP_LINKEDHASHMAP_TREEMAP
         {
             @Override
             public void add(Object Structure, Animal tmp) 
@@ -166,9 +190,113 @@ public class DataEx
                     An.PrintAnimal();
                 }
             }            
+        },
+
+        HASHSET_LINKEDHASHSET_TREESET
+        {
+            @Override
+            public void add(Object Structure, Animal tmp) 
+            {
+                Set Dt = (Set) Structure; 
+                Dt.add(tmp);
+            }
+
+            @Override
+            public void remove(Object tmp,int index) 
+            {
+                Set Dt = (Set) tmp; 
+                if(Dt.size() == 0)
+                {
+                    System.out.println("Collection is empty!");
+                    return;
+                }
+                Animal Rm = (Animal) Dt.iterator().next();
+                Rm.PrintAnimal();
+                Dt.remove(index);
+            }
+
+            @Override 
+            public void update(Object Structure, Animal tmp) 
+            {
+                Set Dt = (Set) Structure; 
+                if(Dt.size() == 0)
+                {
+                    System.out.println("Collection is empty!");
+                    return;
+                }
+                tmp.PrintAnimal();
+                Dt.add(tmp);
+            }
+
+            @Override
+            public void iterate(Object tmp) 
+            {
+                Set Dt = (Set) tmp;
+                if(Dt.size() == 0)
+                {
+                    System.out.println("Collection is empty!");
+                    return;
+                }
+                for (Object Obj : Dt) 
+                {
+                    Animal An = (Animal) Obj;
+                    An.PrintAnimal();
+                }
+            }        
+        },
+        PRIORITYQUEUE
+        {
+            @Override
+            public void add(Object Structure, Animal tmp) 
+            {
+                PriorityQueue Dt = (PriorityQueue) Structure; 
+                Dt.add(tmp);
+            }
+
+            @Override
+            public void remove(Object tmp,int index) 
+            {
+                PriorityQueue Dt = (PriorityQueue) tmp; 
+                if(Dt.size() == 0)
+                {
+                    System.out.println("Collection is empty!");
+                    return;
+                }
+                Animal Rm = (Animal) Dt.iterator().next();
+                Rm.PrintAnimal();
+                Dt.remove(index);
+            }
+
+            @Override 
+            public void update(Object Structure, Animal tmp) 
+            {
+                PriorityQueue Dt = (PriorityQueue) Structure; 
+                if(Dt.size() == 0)
+                {
+                    System.out.println("Collection is empty!");
+                    return;
+                }
+                tmp.PrintAnimal();
+                Dt.add(tmp);
+            }
+
+            @Override
+            public void iterate(Object tmp) 
+            {
+                PriorityQueue Dt = (PriorityQueue) tmp;
+                if(Dt.size() == 0)
+                {
+                    System.out.println("Collection is empty!");
+                    return;
+                }
+                for (Object Obj : Dt) 
+                {
+                    Animal An = (Animal) Obj;
+                    An.PrintAnimal();
+                }
+            }        
         };
 
-    
         public abstract void add(Object Structure, Animal tmp);
         public abstract void remove(Object tmp,int index);
         public abstract void update(Object Structure, Animal tmp);
@@ -185,9 +313,13 @@ public class DataEx
         {
             CrudOperation.LINKEDLIST_ARRAYLIST_VECTOR.add(obj, tmp);
         }
-        if(this.CollectionType.matches("HASHTABLE|HASHMAP|LINKEDHASHMAP"))
+        if(this.CollectionType.matches("HASHTABLE|HASHMAP|LINKEDHASHMAP|TREEMAP"))
         {
-            CrudOperation.HASHTABLE_HASHMAP_LINKEDHASHMAP.add(obj, tmp);
+            CrudOperation.HASHTABLE_HASHMAP_LINKEDHASHMAP_TREEMAP.add(obj, tmp);
+        }
+        if(this.CollectionType.matches("LINKEDHASHSET|HASHSET|TREESET"))
+        {
+            CrudOperation.HASHSET_LINKEDHASHSET_TREESET.add(obj, tmp);
         }
         else
         {
@@ -207,9 +339,13 @@ public class DataEx
         {
             CrudOperation.LINKEDLIST_ARRAYLIST_VECTOR.remove(obj, 0);
         }
-        if(this.CollectionType.matches("HASHTABLE|HASHMAP|LINKEDHASHMAP"))
+        if(this.CollectionType.matches("HASHTABLE|HASHMAP|LINKEDHASHMAP|TREEMAP"))
         {
-            CrudOperation.HASHTABLE_HASHMAP_LINKEDHASHMAP.remove(obj, 0);
+            CrudOperation.HASHTABLE_HASHMAP_LINKEDHASHMAP_TREEMAP.remove(obj, 0);
+        }
+        if(this.CollectionType.matches("LINKEDHASHSET|HASHSET|TREESET"))
+        {
+            CrudOperation.HASHSET_LINKEDHASHSET_TREESET.remove(obj, 0);
         }
         else
         {
@@ -226,9 +362,13 @@ public class DataEx
         {
             CrudOperation.LINKEDLIST_ARRAYLIST_VECTOR.update(obj, tmp);
         }
-        if(this.CollectionType.matches("HASHTABLE|HASHMAP|LINKEDHASHMAP"))
+        if(this.CollectionType.matches("HASHTABLE|HASHMAP|LINKEDHASHMAP|TREEMAP"))
         {
-            CrudOperation.HASHTABLE_HASHMAP_LINKEDHASHMAP.update(obj, tmp);
+            CrudOperation.HASHTABLE_HASHMAP_LINKEDHASHMAP_TREEMAP.update(obj, tmp);
+        }
+        if(this.CollectionType.matches("LINKEDHASHSET|HASHSET|TREESET"))
+        {
+            CrudOperation.HASHSET_LINKEDHASHSET_TREESET.update(obj, tmp);
         }
         else
         {
@@ -244,14 +384,19 @@ public class DataEx
         {
             CrudOperation.LINKEDLIST_ARRAYLIST_VECTOR.iterate(obj);
         }
-        if(this.CollectionType.matches("HASHTABLE|HASHMAP|LINKEDHASHMAP"))
+        if(this.CollectionType.matches("HASHTABLE|HASHMAP|LINKEDHASHMAP|TREEMAP"))
         {
-            CrudOperation.HASHTABLE_HASHMAP_LINKEDHASHMAP.iterate(obj);
+            CrudOperation.HASHTABLE_HASHMAP_LINKEDHASHMAP_TREEMAP.iterate(obj);
+        }
+        if(this.CollectionType.matches("LINKEDHASHSET|HASHSET|TREESET"))
+        {
+            CrudOperation.HASHSET_LINKEDHASHSET_TREESET.iterate(obj);
         }
         else
         {
             CrudOperation.valueOf(this.CollectionType).iterate(obj);
         }
+
         End("iterate");
     }
 }
