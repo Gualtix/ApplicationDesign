@@ -1,0 +1,28 @@
+  enum Operator{
+
+        LINKEDLIST {
+            @Override
+            public void add(Object tmp) {
+               
+            }
+
+
+        },
+        ARRAYLIST {
+            @Override
+            public void add(Object tmp) {
+             
+            }
+        },
+        VECTOR {
+            @Override
+            public void add(Object tmp) {
+                
+            }
+        };
+    
+        public abstract void add(Object tmp);
+
+    }
+
+    //int result = calculator.calculate(3, 4, Operator.valueOf("ADD"));

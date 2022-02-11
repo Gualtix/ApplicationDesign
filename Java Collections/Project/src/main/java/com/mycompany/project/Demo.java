@@ -1,13 +1,14 @@
 package com.mycompany.project;
 import java.io.IOException;
 import java.util.InputMismatchException;
-import java.util.LinkedList;
 import java.util.Scanner;
-import DataStructures.Animal;
+import DataStructures.DataEx;
 
-public class Demo {
+public class Demo 
+{
 
-    LinkedList <Animal> AnimaLinkedList = new LinkedList<>();
+    DataEx DT = new DataEx();
+
     String CollectionType = "";
 
     String[] crud_options = 
@@ -22,10 +23,10 @@ public class Demo {
     String[] collection_option = 
     {   
         "1- LinkedList",
-        "2- LinkedHashSet",
-        "3- TreeSet",
-        "4- ArrayList",
-        "5- Vector",
+        "2- ArrayList",
+        "3- Vector",
+        "4- LinkedHashSet",
+        "5- TreeSet",
         "6- HashSet",
         "7- PriorityQueue",
         "8- HashTable",
@@ -40,105 +41,9 @@ public class Demo {
         System.out.flush();  
     } 
 
-    public Animal CreateNewAnimal(){
-        System.out.println("Enter the Animal ID: ");
-        Scanner sc = new Scanner(System.in);
-        String ID = sc. nextLine();
+    public Demo()
+    {
 
-        System.out.println("Enter the Animal Name: ");
-        String Name = sc. nextLine();
-
-        System.out.println("Enter the Animal Type: ");
-        String Type = sc. nextLine();
-
-        Animal tmp = new Animal(ID, Name, Type);
-        return tmp;
-    }
-
-    // CRUD
-    public void add() throws IOException{
-        clearScreen();
-        System.out.println("--- Add ---");
-        System.out.println("");
-        Animal tmp = CreateNewAnimal();
-        
-        if(this.CollectionType.equals("LinkedList")){
-            this.AnimaLinkedList.add(tmp);
-        }
-
-        System.out.println("");
-        System.out.println(this.CollectionType+": New Animal Successfully Added!");
-        System.in.read();
-        Menu(crud_options,"crud");
-    }
-
-    public void remove() throws IOException{
-        clearScreen();
-        System.out.println("--- Remove ---");
-        System.out.println("");
-        if(this.CollectionType.equals("LinkedList")){
-            this.AnimaLinkedList.removeLast();
-        }
-
-        System.out.println("");
-        System.out.println(this.CollectionType+": Animal Successfully Removed!");
-        System.in.read();
-        Menu(crud_options,"crud");
-    }
-
-    public void update() throws IOException{
-        clearScreen();
-        System.out.println("--- Remove ---");
-        System.out.println("");
-
-        if(this.CollectionType.equals("LinkedList")){
-            Animal tmp = null;
-            System.out.println("Enter the Animal ID: ");
-            Scanner sc = new Scanner(System.in);
-            String ID = sc. nextLine();
-
-            for(Animal a : this.AnimaLinkedList){
-                if(a.ID.equals(ID)){
-                    tmp = a;
-                }
-            }
-
-            if(tmp == null){
-                System.out.println("Animal not found!");
-                System.in.read();
-                Menu(crud_options,"crud");
-            }
-
-            
-            System.out.println("Enter the New Animal Name: ");
-            String Name = sc. nextLine();
-            tmp.Name = Name;
-        }
-
-        System.out.println("");
-        System.out.println(this.CollectionType+": Animal Successfully Updated!");
-        System.in.read();
-        Menu(crud_options,"crud");
-    }
-
-    public void iterate() throws IOException{
-        clearScreen();
-        System.out.println("--- Iterate ---");
-        System.out.println("");
-
-        if(this.CollectionType.equals("LinkedList")){
-            for(Animal tmp : AnimaLinkedList){
-                System.out.println("Name: " + tmp.Name + " ID: " + tmp.ID + " Type: " + tmp.Type);
-            }
-        }
-
-        System.out.println("");
-        System.out.println(this.CollectionType+": Successfully Iterated!");
-        System.in.read();
-        Menu(crud_options,"crud");
-    }
-
-    public Demo(){
     }
 
     public void PrintMenu(String[] opt){
@@ -150,14 +55,13 @@ public class Demo {
 
     public void ExitDemo(){
         System.out.println("Exiting Demo...");
+        System.exit(0);
     }
 
     public void NoValidOption(String[] menu_options) throws IOException{
         System.out.println("Please enter an integer value between 1 and " + menu_options.length);
         System.in.read();
     }
-
-
 
     public void Menu(String[] menu_options,String scope) throws IOException{
 
@@ -178,30 +82,33 @@ public class Demo {
             PrintMenu(menu_options);
             
             try {
-                if(scope.equals("collection")){
-                    this.CollectionType = menu_options[option-1];
-                    this.CollectionType = this.CollectionType.substring(3);
-                }
+                
                 option = scanner.nextInt();
+                if(scope.equals("collection")){
+                    //this.CollectionType = menu_options[option-1];
+                    //this.CollectionType = this.CollectionType.substring(3);
+                    //DT.CollectionType = this.CollectionType;
+                    DT.CollectionType = menu_options[option-1].substring(3);
+                }
                 switch (option){
                     case 1: 
                         if(scope.equals("collection")){Menu(crud_options,"crud");}
-                        if (scope.equals("crud")){add();}
+                        if (scope.equals("crud")){DT.add(); Menu(crud_options, "crud");}
                         break;
 
                     case 2: 
                         if(scope.equals("collection")){Menu(crud_options,"crud");}
-                        if(scope.equals("crud")){remove();}
+                        if(scope.equals("crud")){DT.remove(); Menu(crud_options, "crud");}
                     break;
 
                     case 3: 
                         if(scope.equals("collection")){Menu(crud_options,"crud");}
-                        if(scope.equals("crud")){update();}
+                        if(scope.equals("crud")){DT.update(); Menu(crud_options, "crud");}
                     break;
 
                     case 4: 
                         if(scope.equals("collection")){Menu(crud_options,"crud");}
-                        if(scope.equals("crud")){iterate();}
+                        if(scope.equals("crud")){DT.iterate(); Menu(crud_options, "crud");}
                     break;
 
                     case 5: 
