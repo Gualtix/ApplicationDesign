@@ -89,6 +89,7 @@ public class Demo
                     //this.CollectionType = this.CollectionType.substring(3);
                     //DT.CollectionType = this.CollectionType;
                     DT.CollectionType = menu_options[option-1].substring(3);
+                    DT.CollectionType = DT.CollectionType.toUpperCase();
                 }
                 switch (option){
                     case 1: 
