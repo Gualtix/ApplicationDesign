@@ -1,15 +1,22 @@
 package DataStructures;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 public class DataEx 
 {
     LinkedList<Animal> AnimaLinkedList = new LinkedList<>();
-    ArrayList<Animal>  AnimaArrayList  = new ArrayList<>();
-    Vector<Animal>     AnimaVector     = new Vector<>();
+    ArrayList<Animal> AnimaArrayList  = new ArrayList<>();
+    Vector<Animal> AnimaVector     = new Vector<>();
+    Hashtable<String, Animal> AnimaHashTable = new Hashtable<>();
+    HashMap<String, Animal> AnimaHashMap = new HashMap<>();
+    LinkedHashMap<String, Animal> AnimaLinkedHashMap = new LinkedHashMap<>();
 
     public String CollectionType = "";
 
@@ -42,6 +49,12 @@ public class DataEx
                 return this.AnimaArrayList;
             case "VECTOR":
                 return this.AnimaVector;
+            case "HASHTABLE":
+                return this.AnimaHashTable;
+            case "HASHMAP":
+                return this.AnimaHashMap;
+            case "LINKEDHASHMAP":
+                return this.AnimaLinkedHashMap;
             default:
                 return null;
         }
@@ -100,8 +113,61 @@ public class DataEx
                     Animal An = (Animal) Obj;
                     An.PrintAnimal();
                 }
+            }            
+        },
+        HASHTABLE_HASHMAP_LINKEDHASHMAP
+        {
+            @Override
+            public void add(Object Structure, Animal tmp) 
+            {
+                Map Dt = (Map) Structure; 
+                Dt.put(tmp.hashCode(), tmp);
             }
+
+            @Override
+            public void remove(Object tmp,int index) 
+            {
+                Map Dt = (Map) tmp; 
+                if(Dt.size() == 0)
+                {
+                    System.out.println("Collection is empty!");
+                    return;
+                }
+                Animal Rm = (Animal) Dt.get(0);
+                Rm.PrintAnimal();
+                Dt.remove(index);
+            }
+
+            @Override 
+            public void update(Object Structure, Animal tmp) 
+            {
+                Map Dt = (Map) Structure; 
+                if(Dt.size() == 0)
+                {
+                    System.out.println("Collection is empty!");
+                    return;
+                }
+                tmp.PrintAnimal();
+                Dt.put(tmp.hashCode(), tmp);
+            }
+
+            @Override
+            public void iterate(Object tmp) 
+            {
+                Map Dt = (Map) tmp;
+                if(Dt.size() == 0)
+                {
+                    System.out.println("Collection is empty!");
+                    return;
+                }
+                for (Object Obj : Dt.values()) 
+                {
+                    Animal An = (Animal) Obj;
+                    An.PrintAnimal();
+                }
+            }            
         };
+
     
         public abstract void add(Object Structure, Animal tmp);
         public abstract void remove(Object tmp,int index);
@@ -118,6 +184,10 @@ public class DataEx
         if(this.CollectionType.matches("LINKEDLIST|ARRAYLIST|VECTOR"))
         {
             CrudOperation.LINKEDLIST_ARRAYLIST_VECTOR.add(obj, tmp);
+        }
+        if(this.CollectionType.matches("HASHTABLE|HASHMAP|LINKEDHASHMAP"))
+        {
+            CrudOperation.HASHTABLE_HASHMAP_LINKEDHASHMAP.add(obj, tmp);
         }
         else
         {
@@ -137,6 +207,10 @@ public class DataEx
         {
             CrudOperation.LINKEDLIST_ARRAYLIST_VECTOR.remove(obj, 0);
         }
+        if(this.CollectionType.matches("HASHTABLE|HASHMAP|LINKEDHASHMAP"))
+        {
+            CrudOperation.HASHTABLE_HASHMAP_LINKEDHASHMAP.remove(obj, 0);
+        }
         else
         {
             CrudOperation.valueOf(this.CollectionType).remove(obj, 0);
@@ -152,6 +226,10 @@ public class DataEx
         {
             CrudOperation.LINKEDLIST_ARRAYLIST_VECTOR.update(obj, tmp);
         }
+        if(this.CollectionType.matches("HASHTABLE|HASHMAP|LINKEDHASHMAP"))
+        {
+            CrudOperation.HASHTABLE_HASHMAP_LINKEDHASHMAP.update(obj, tmp);
+        }
         else
         {
             CrudOperation.valueOf(this.CollectionType).update(obj, tmp);
@@ -165,6 +243,10 @@ public class DataEx
         if(this.CollectionType.matches("LINKEDLIST|ARRAYLIST|VECTOR"))
         {
             CrudOperation.LINKEDLIST_ARRAYLIST_VECTOR.iterate(obj);
+        }
+        if(this.CollectionType.matches("HASHTABLE|HASHMAP|LINKEDHASHMAP"))
+        {
+            CrudOperation.HASHTABLE_HASHMAP_LINKEDHASHMAP.iterate(obj);
         }
         else
         {

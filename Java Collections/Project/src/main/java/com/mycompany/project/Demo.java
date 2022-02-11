@@ -19,20 +19,21 @@ public class Demo
         "4- Iterate",
         "5- Return to Collection Menu"
     };
+    
 
     String[] collection_option = 
     {   
         "1- LinkedList",
         "2- ArrayList",
         "3- Vector",
-        "4- LinkedHashSet",
-        "5- TreeSet",
-        "6- HashSet",
-        "7- PriorityQueue",
-        "8- HashTable",
-        "9- HashMap",
-        "10- LinkedHashMap",
-        "11- TreeMap",
+        "4- HashMap",
+        "5- HashTable",
+        "6- LinkedHashMap",
+        "7- TreeMap",
+        "8- HashSet",
+        "9- LinkedHashSet",
+        "10- TreeSet",
+        "11- PriorityQueue",
         "12- Exit Demo...",
     };
 
