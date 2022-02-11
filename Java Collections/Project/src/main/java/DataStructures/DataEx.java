@@ -36,11 +36,11 @@ public class DataEx
     {
         switch(this.CollectionType)
         {
-            case "LinkedList":
+            case "LINKEDLIST":
                 return this.AnimaLinkedList;
-            case "ArrayList":
+            case "ARRAYLIST":
                 return this.AnimaArrayList;
-            case "Vector":
+            case "VECTOR":
                 return this.AnimaVector;
             default:
                 return null;
@@ -50,62 +50,51 @@ public class DataEx
 
     enum CrudOperation
     {
-        LINKEDLIST 
+        LINKEDLIST_ARRAYLIST_VECTOR
         {
-            public @Override  void add(Object Structure, Animal tmp) 
-            {List Dt = (List) Structure; Dt.add(tmp);}
-
-            public @Override void remove(Object tmp,int index) 
-            {List Dt = (List) tmp; Dt.remove(index);}
-
-            public @Override void update(Object Structure, Animal tmp) 
-            {List Dt = (List) Structure; Dt.set(0, tmp);}
-
-            public @Override void iterate(Object tmp) 
+            @Override
+            public void add(Object Structure, Animal tmp) 
             {
-                List Dt = (List) tmp;
-                for (Object Obj : Dt) 
-                {
-                    Animal An = (Animal) Obj;
-                    An.PrintAnimal();
-                }
+                List Dt = (List) Structure; 
+                Dt.add(tmp);
             }
-        },
-        ARRAYLIST 
-        {
-            public @Override  void add(Object Structure, Animal tmp) 
-            {List Dt = (List) Structure; Dt.add(tmp);}
 
-            public @Override void remove(Object tmp,int index) 
-            {List Dt = (List) tmp; Dt.remove(index);}
-
-            public @Override void update(Object Structure, Animal tmp) 
-            {List Dt = (List) Structure; Dt.set(0, tmp);}
-
-            public @Override void iterate(Object tmp) 
+            @Override
+            public void remove(Object tmp,int index) 
             {
-                List Dt = (List) tmp;
-                for (Object Obj : Dt) 
+                List Dt = (List) tmp; 
+                if(Dt.size() == 0)
                 {
-                    Animal An = (Animal) Obj;
-                    An.PrintAnimal();
+                    System.out.println("Collection is empty!");
+                    return;
                 }
+                Animal Rm = (Animal) Dt.get(0);
+                Rm.PrintAnimal();
+                Dt.remove(index);
             }
-        },
-        VECTOR 
-        {
-            public @Override  void add(Object Structure, Animal tmp) 
-            {List Dt = (List) Structure; Dt.add(tmp);}
 
-            public @Override void remove(Object tmp,int index) 
-            {List Dt = (List) tmp; Dt.remove(index);}
+            @Override 
+            public void update(Object Structure, Animal tmp) 
+            {
+                List Dt = (List) Structure; 
+                if(Dt.size() == 0)
+                {
+                    System.out.println("Collection is empty!");
+                    return;
+                }
+                tmp.PrintAnimal();
+                Dt.set(0, tmp);
+            }
 
-            public @Override void update(Object Structure, Animal tmp) 
-            {List Dt = (List) Structure; Dt.set(0, tmp);}
-
-            public @Override void iterate(Object tmp) 
+            @Override
+            public void iterate(Object tmp) 
             {
                 List Dt = (List) tmp;
+                if(Dt.size() == 0)
+                {
+                    System.out.println("Collection is empty!");
+                    return;
+                }
                 for (Object Obj : Dt) 
                 {
                     Animal An = (Animal) Obj;
@@ -123,23 +112,19 @@ public class DataEx
     // CRUD
     public void add() throws IOException 
     {
-        
         Object obj = getCollection();
         Animal tmp = new Animal();
         Start("add");
-
-
-        CrudOperation.valueOf(this.CollectionType).add(obj, tmp);
-
-        End("add");
-
-        /*
-        if(this.CollectionType.matches("LinkedList|ArrayList|Vector")){
-            List test = (List) obj;
-            test.add(tmp);
+        if(this.CollectionType.matches("LINKEDLIST|ARRAYLIST|VECTOR"))
+        {
+            CrudOperation.LINKEDLIST_ARRAYLIST_VECTOR.add(obj, tmp);
         }
-        */
-
+        else
+        {
+            CrudOperation.valueOf(this.CollectionType).add(obj, tmp);
+        }
+        End("add");
+        CrudOperation.valueOf(this.CollectionType).add(obj, tmp);
         tmp.PrintAnimal();
         End("add");
     }
@@ -148,11 +133,13 @@ public class DataEx
     {
         Object obj = getCollection();
         Start("remove");
-        if (this.CollectionType.equals("LinkedList") || this.CollectionType.equals("ArrayList") || this.CollectionType.equals("Vector")) 
+        if(this.CollectionType.matches("LINKEDLIST|ARRAYLIST|VECTOR"))
         {
-            List test = (List) obj;
-            test.remove(0);
-            //this.AnimaLinkedList.remove(0);
+            CrudOperation.LINKEDLIST_ARRAYLIST_VECTOR.remove(obj, 0);
+        }
+        else
+        {
+            CrudOperation.valueOf(this.CollectionType).remove(obj, 0);
         }
         End("remove");
     }
@@ -160,12 +147,14 @@ public class DataEx
     public void update() throws IOException {
         Object obj = getCollection();
         Start("update");
-        if (this.CollectionType.equals("LinkedList") || this.CollectionType.equals("ArrayList") || this.CollectionType.equals("Vector"))  
+        Animal tmp = new Animal();
+        if(this.CollectionType.matches("LINKEDLIST|ARRAYLIST|VECTOR"))
         {
-            List test = (List) obj;
-            Animal tmp = (Animal)test.get(0);
-            tmp.UpdateAnimal();
-            //this.AnimaLinkedList.get(0).UpdateAnimal();
+            CrudOperation.LINKEDLIST_ARRAYLIST_VECTOR.update(obj, tmp);
+        }
+        else
+        {
+            CrudOperation.valueOf(this.CollectionType).update(obj, tmp);
         }
         End("update");
     }
@@ -173,14 +162,13 @@ public class DataEx
     public void iterate() throws IOException {
         Object obj = getCollection();
         Start("iterate");
-        if (this.CollectionType.equals("LinkedList") || this.CollectionType.equals("ArrayList") || this.CollectionType.equals("Vector")) 
+        if(this.CollectionType.matches("LINKEDLIST|ARRAYLIST|VECTOR"))
         {
-            List test = (List) obj;
-            for (Object tmp : test) 
-            {
-                Animal tmp2 = (Animal)tmp;
-                tmp2.PrintAnimal();
-            }
+            CrudOperation.LINKEDLIST_ARRAYLIST_VECTOR.iterate(obj);
+        }
+        else
+        {
+            CrudOperation.valueOf(this.CollectionType).iterate(obj);
         }
         End("iterate");
     }
