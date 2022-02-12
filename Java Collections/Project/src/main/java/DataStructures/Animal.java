@@ -20,7 +20,8 @@ public class Animal implements Comparable
     // Overriding hashCode()
     @Override public int hashCode() 
     { 
-        return Integer.parseInt(this.ID);
+        int code = Integer.parseInt(this.ID);
+        return code;
     }
 
     // Overriding equals()
@@ -43,8 +44,6 @@ public class Animal implements Comparable
         return this.ID.compareTo(a.ID);
     }
 
-
-
     public void PrintAnimal(){
         System.out.println("ID: "+this.ID);
         System.out.println("Name: "+this.Name);
@@ -54,7 +53,7 @@ public class Animal implements Comparable
 
     public void ShowOld(Animal OldAnimal)
     {
-        System.out.println("Old ID: "+OldAnimal.ID+" -> New ID:"+this.ID);
+        System.out.println("Old ID: "+OldAnimal.ID+" -> New ID: "+OldAnimal.ID);
         System.out.println("Old Name: "+OldAnimal.Name+" -> New Name: "+this.Name);
         System.out.println("Old Type: "+OldAnimal.Type+" -> New Type: "+this.Type);
         System.out.println("");

@@ -22,7 +22,8 @@ enum CrudOperation {
                 System.out.println("Collection is empty!");
                 return;
             }
-            Animal Rm = (Animal) Dt.get(0);
+            index = Dt.size() - 1;
+            Animal Rm = (Animal) Dt.get(index);
             Rm.PrintAnimal();
             Dt.remove(index);
         }
@@ -57,7 +58,9 @@ enum CrudOperation {
         @Override
         public void add(Object Structure, Animal tmp) {
             Map Dt = (Map) Structure;
-            Dt.put(tmp.hashCode(), tmp);
+            int cnt = Dt.size() + 1;
+            tmp.ID = Integer.toString(cnt);
+            Dt.put(tmp.ID, tmp);
         }
 
         @Override
@@ -67,9 +70,11 @@ enum CrudOperation {
                 System.out.println("Collection is empty!");
                 return;
             }
-            Animal Rm = (Animal) Dt.get(0);
+            
+            String Key = Integer.toString(Dt.size());
+            Animal Rm = (Animal) Dt.get(Key);
             Rm.PrintAnimal();
-            Dt.remove(index);
+            Dt.remove(Key);
         }
 
         @Override
@@ -79,19 +84,23 @@ enum CrudOperation {
                 System.out.println("Collection is empty!");
                 return;
             }
-            tmp.PrintAnimal();
-            Dt.put(tmp.hashCode(), tmp);
+            Animal OldAni = (Animal) Dt.get("1");
+            tmp.ID = OldAni.ID;
+            tmp.ShowOld(OldAni);
+            Dt.put(tmp.ID, tmp);
         }
 
         @Override
         public void iterate(Object tmp) {
             Map Dt = (Map) tmp;
+            
             if (Dt.size() == 0) {
                 System.out.println("Collection is empty!");
                 return;
             }
             for (Object Obj : Dt.values()) {
                 Animal An = (Animal) Obj;
+                System.out.println("HashCode: " + An.hashCode());
                 An.PrintAnimal();
             }
         }

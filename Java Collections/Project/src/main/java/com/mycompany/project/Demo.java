@@ -14,7 +14,7 @@ public class Demo
     String[] crud_options = 
     {   
         "1- Add",
-        "2- Remove (Alway Remove the First Element)",
+        "2- Remove (Alway Remove the Last Element)",
         "3- Update (Alway Update the First Element)",
         "4- Iterate",
         "5- Return to Collection Menu"
@@ -123,7 +123,7 @@ public class Demo
 
                     default:
                         if(option > 5 && option < 12 && scope.equals("collection")){
-                            Menu(collection_option,"collection");
+                            Menu(crud_options,"crud");
                         }
                         else{
                             NoValidOption(menu_options);
