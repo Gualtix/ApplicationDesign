@@ -7,10 +7,7 @@ import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import java.util.PriorityQueue;
-import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
@@ -83,250 +80,30 @@ public class DataEx
         }
     }
 
-
-    enum CrudOperation
-    {
-        LINKEDLIST_ARRAYLIST_VECTOR
-        {
-            @Override
-            public void add(Object Structure, Animal tmp) 
-            {
-                List Dt = (List) Structure; 
-                Dt.add(tmp);
-            }
-
-            @Override
-            public void remove(Object tmp,int index) 
-            {
-                List Dt = (List) tmp; 
-                if(Dt.size() == 0)
-                {
-                    System.out.println("Collection is empty!");
-                    return;
-                }
-                Animal Rm = (Animal) Dt.get(0);
-                Rm.PrintAnimal();
-                Dt.remove(index);
-            }
-
-            @Override 
-            public void update(Object Structure, Animal tmp) 
-            {
-                List Dt = (List) Structure; 
-                if(Dt.size() == 0)
-                {
-                    System.out.println("Collection is empty!");
-                    return;
-                }
-                tmp.PrintAnimal();
-                Dt.set(0, tmp);
-            }
-
-            @Override
-            public void iterate(Object tmp) 
-            {
-                List Dt = (List) tmp;
-                if(Dt.size() == 0)
-                {
-                    System.out.println("Collection is empty!");
-                    return;
-                }
-                for (Object Obj : Dt) 
-                {
-                    Animal An = (Animal) Obj;
-                    An.PrintAnimal();
-                }
-            }            
-        },
-
-        HASHTABLE_HASHMAP_LINKEDHASHMAP_TREEMAP
-        {
-            @Override
-            public void add(Object Structure, Animal tmp) 
-            {
-                Map Dt = (Map) Structure; 
-                Dt.put(tmp.hashCode(), tmp);
-            }
-
-            @Override
-            public void remove(Object tmp,int index) 
-            {
-                Map Dt = (Map) tmp; 
-                if(Dt.size() == 0)
-                {
-                    System.out.println("Collection is empty!");
-                    return;
-                }
-                Animal Rm = (Animal) Dt.get(0);
-                Rm.PrintAnimal();
-                Dt.remove(index);
-            }
-
-            @Override 
-            public void update(Object Structure, Animal tmp) 
-            {
-                Map Dt = (Map) Structure; 
-                if(Dt.size() == 0)
-                {
-                    System.out.println("Collection is empty!");
-                    return;
-                }
-                tmp.PrintAnimal();
-                Dt.put(tmp.hashCode(), tmp);
-            }
-
-            @Override
-            public void iterate(Object tmp) 
-            {
-                Map Dt = (Map) tmp;
-                if(Dt.size() == 0)
-                {
-                    System.out.println("Collection is empty!");
-                    return;
-                }
-                for (Object Obj : Dt.values()) 
-                {
-                    Animal An = (Animal) Obj;
-                    An.PrintAnimal();
-                }
-            }            
-        },
-
-        HASHSET_LINKEDHASHSET_TREESET
-        {
-            @Override
-            public void add(Object Structure, Animal tmp) 
-            {
-                Set Dt = (Set) Structure; 
-                Dt.add(tmp);
-            }
-
-            @Override
-            public void remove(Object tmp,int index) 
-            {
-                Set Dt = (Set) tmp; 
-                if(Dt.size() == 0)
-                {
-                    System.out.println("Collection is empty!");
-                    return;
-                }
-                Animal Rm = (Animal) Dt.iterator().next();
-                Rm.PrintAnimal();
-                Dt.remove(index);
-            }
-
-            @Override 
-            public void update(Object Structure, Animal tmp) 
-            {
-                Set Dt = (Set) Structure; 
-                if(Dt.size() == 0)
-                {
-                    System.out.println("Collection is empty!");
-                    return;
-                }
-                tmp.PrintAnimal();
-                Dt.add(tmp);
-            }
-
-            @Override
-            public void iterate(Object tmp) 
-            {
-                Set Dt = (Set) tmp;
-                if(Dt.size() == 0)
-                {
-                    System.out.println("Collection is empty!");
-                    return;
-                }
-                for (Object Obj : Dt) 
-                {
-                    Animal An = (Animal) Obj;
-                    An.PrintAnimal();
-                }
-            }        
-        },
-        PRIORITYQUEUE
-        {
-            @Override
-            public void add(Object Structure, Animal tmp) 
-            {
-                PriorityQueue Dt = (PriorityQueue) Structure; 
-                Dt.add(tmp);
-            }
-
-            @Override
-            public void remove(Object tmp,int index) 
-            {
-                PriorityQueue Dt = (PriorityQueue) tmp; 
-                if(Dt.size() == 0)
-                {
-                    System.out.println("Collection is empty!");
-                    return;
-                }
-                Animal Rm = (Animal) Dt.iterator().next();
-                Rm.PrintAnimal();
-                Dt.remove(index);
-            }
-
-            @Override 
-            public void update(Object Structure, Animal tmp) 
-            {
-                PriorityQueue Dt = (PriorityQueue) Structure; 
-                if(Dt.size() == 0)
-                {
-                    System.out.println("Collection is empty!");
-                    return;
-                }
-                tmp.PrintAnimal();
-                Dt.add(tmp);
-            }
-
-            @Override
-            public void iterate(Object tmp) 
-            {
-                PriorityQueue Dt = (PriorityQueue) tmp;
-                if(Dt.size() == 0)
-                {
-                    System.out.println("Collection is empty!");
-                    return;
-                }
-                for (Object Obj : Dt) 
-                {
-                    Animal An = (Animal) Obj;
-                    An.PrintAnimal();
-                }
-            }        
-        };
-
-        public abstract void add(Object Structure, Animal tmp);
-        public abstract void remove(Object tmp,int index);
-        public abstract void update(Object Structure, Animal tmp);
-        public abstract void iterate(Object Structure);
-    }
-
     // CRUD
     public void add() throws IOException 
     {
         Object obj = getCollection();
         Animal tmp = new Animal();
         Start("add");
-        if(this.CollectionType.matches("LINKEDLIST|ARRAYLIST|VECTOR"))
+
+        switch(this.CollectionType)
         {
-            CrudOperation.LINKEDLIST_ARRAYLIST_VECTOR.add(obj, tmp);
+            case("LINKEDLIST"):
+            case("ARRAYLIST"):
+            case("VECTOR"): CrudOperation.LINKEDLIST_ARRAYLIST_VECTOR.add(obj, tmp); break;
+
+            case("HASHMAP"):
+            case("HASHTABLE"):
+            case("LINKEDHASHMAP"):
+            case("TREEMAP"): CrudOperation.HASHTABLE_HASHMAP_LINKEDHASHMAP_TREEMAP.add(obj, tmp); break;
+
+            case("HASHSET"):
+            case("LINKEDHASHSET"):
+            case("TREESET"):CrudOperation.HASHSET_LINKEDHASHSET_TREESET.add(obj, tmp); break;
+
+            case("PRIORITYQUEUE"): CrudOperation.PRIORITYQUEUE.add(obj, tmp); break;
         }
-        if(this.CollectionType.matches("HASHTABLE|HASHMAP|LINKEDHASHMAP|TREEMAP"))
-        {
-            CrudOperation.HASHTABLE_HASHMAP_LINKEDHASHMAP_TREEMAP.add(obj, tmp);
-        }
-        if(this.CollectionType.matches("LINKEDHASHSET|HASHSET|TREESET"))
-        {
-            CrudOperation.HASHSET_LINKEDHASHSET_TREESET.add(obj, tmp);
-        }
-        else
-        {
-            CrudOperation.valueOf(this.CollectionType).add(obj, tmp);
-        }
-        End("add");
-        CrudOperation.valueOf(this.CollectionType).add(obj, tmp);
         tmp.PrintAnimal();
         End("add");
     }
@@ -335,21 +112,23 @@ public class DataEx
     {
         Object obj = getCollection();
         Start("remove");
-        if(this.CollectionType.matches("LINKEDLIST|ARRAYLIST|VECTOR"))
+
+        switch(this.CollectionType)
         {
-            CrudOperation.LINKEDLIST_ARRAYLIST_VECTOR.remove(obj, 0);
-        }
-        if(this.CollectionType.matches("HASHTABLE|HASHMAP|LINKEDHASHMAP|TREEMAP"))
-        {
-            CrudOperation.HASHTABLE_HASHMAP_LINKEDHASHMAP_TREEMAP.remove(obj, 0);
-        }
-        if(this.CollectionType.matches("LINKEDHASHSET|HASHSET|TREESET"))
-        {
-            CrudOperation.HASHSET_LINKEDHASHSET_TREESET.remove(obj, 0);
-        }
-        else
-        {
-            CrudOperation.valueOf(this.CollectionType).remove(obj, 0);
+            case("LINKEDLIST"):
+            case("ARRAYLIST"):
+            case("VECTOR"): CrudOperation.LINKEDLIST_ARRAYLIST_VECTOR.remove(obj, 0); break;
+
+            case("HASHMAP"):
+            case("HASHTABLE"):
+            case("LINKEDHASHMAP"):
+            case("TREEMAP"): CrudOperation.HASHTABLE_HASHMAP_LINKEDHASHMAP_TREEMAP.remove(obj, 0); break;
+
+            case("HASHSET"):
+            case("LINKEDHASHSET"):
+            case("TREESET"): CrudOperation.HASHSET_LINKEDHASHSET_TREESET.remove(obj, 0); break;
+
+            case("PRIORITYQUEUE"): CrudOperation.PRIORITYQUEUE.remove(obj, 0); break;
         }
         End("remove");
     }
@@ -358,21 +137,23 @@ public class DataEx
         Object obj = getCollection();
         Start("update");
         Animal tmp = new Animal();
-        if(this.CollectionType.matches("LINKEDLIST|ARRAYLIST|VECTOR"))
+
+        switch(this.CollectionType)
         {
-            CrudOperation.LINKEDLIST_ARRAYLIST_VECTOR.update(obj, tmp);
-        }
-        if(this.CollectionType.matches("HASHTABLE|HASHMAP|LINKEDHASHMAP|TREEMAP"))
-        {
-            CrudOperation.HASHTABLE_HASHMAP_LINKEDHASHMAP_TREEMAP.update(obj, tmp);
-        }
-        if(this.CollectionType.matches("LINKEDHASHSET|HASHSET|TREESET"))
-        {
-            CrudOperation.HASHSET_LINKEDHASHSET_TREESET.update(obj, tmp);
-        }
-        else
-        {
-            CrudOperation.valueOf(this.CollectionType).update(obj, tmp);
+            case("LINKEDLIST"):
+            case("ARRAYLIST"):
+            case("VECTOR"): CrudOperation.LINKEDLIST_ARRAYLIST_VECTOR.update(obj, tmp); break;
+
+            case("HASHMAP"):
+            case("HASHTABLE"):
+            case("LINKEDHASHMAP"):
+            case("TREEMAP"): CrudOperation.HASHTABLE_HASHMAP_LINKEDHASHMAP_TREEMAP.update(obj, tmp); break;
+
+            case("HASHSET"):
+            case("LINKEDHASHSET"):
+            case("TREESET"): CrudOperation.HASHSET_LINKEDHASHSET_TREESET.update(obj, tmp); break; 
+
+            case("PRIORITYQUEUE"): CrudOperation.PRIORITYQUEUE.update(obj, tmp); break;
         }
         End("update");
     }
@@ -380,21 +161,23 @@ public class DataEx
     public void iterate() throws IOException {
         Object obj = getCollection();
         Start("iterate");
-        if(this.CollectionType.matches("LINKEDLIST|ARRAYLIST|VECTOR"))
+
+        switch(this.CollectionType)
         {
-            CrudOperation.LINKEDLIST_ARRAYLIST_VECTOR.iterate(obj);
-        }
-        if(this.CollectionType.matches("HASHTABLE|HASHMAP|LINKEDHASHMAP|TREEMAP"))
-        {
-            CrudOperation.HASHTABLE_HASHMAP_LINKEDHASHMAP_TREEMAP.iterate(obj);
-        }
-        if(this.CollectionType.matches("LINKEDHASHSET|HASHSET|TREESET"))
-        {
-            CrudOperation.HASHSET_LINKEDHASHSET_TREESET.iterate(obj);
-        }
-        else
-        {
-            CrudOperation.valueOf(this.CollectionType).iterate(obj);
+            case("LINKEDLIST"):
+            case("ARRAYLIST"):
+            case("VECTOR"): CrudOperation.LINKEDLIST_ARRAYLIST_VECTOR.iterate(obj); break;
+
+            case("HASHMAP"):
+            case("HASHTABLE"):
+            case("LINKEDHASHMAP"):
+            case("TREEMAP"): CrudOperation.HASHTABLE_HASHMAP_LINKEDHASHMAP_TREEMAP.iterate(obj); break;
+
+            case("HASHSET"):
+            case("LINKEDHASHSET"):
+            case("TREESET"): CrudOperation.HASHSET_LINKEDHASHSET_TREESET.iterate(obj); break;  
+
+            case("PRIORITYQUEUE"): CrudOperation.PRIORITYQUEUE.iterate(obj); break;
         }
 
         End("iterate");

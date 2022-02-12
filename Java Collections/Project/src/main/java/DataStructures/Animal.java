@@ -8,14 +8,13 @@ public class Animal implements Comparable
     public String Name;
     public String Type;
 
-    public String random_types[] = {"Lion", "Tiger", "Elephant", "Giraffe", "Hippo", "Zebra", "Crocodile", "Snake", "Lion", "Tiger", "Elephant", "Giraffe", "Hippo", "Zebra", "Crocodile", "Snake"};
-    public String random_names[] = {"Agust", "Jhosh", "Star", "Garfield", "Zaboo", "Nati", "Diego", "Gogi", "Lincon", "Asgard", "Tor", "Tony", "Rita", "Flofy", "Snop", "Floyd"};
+    //15
+    public String random_types[] = {"Lion", "Tiger", "Elephant", "Giraffe", "Hippo", "Zebra", "Crocodile", "Snake", "Lion", "Tiger", "Elephant", "Giraffe", "Hippo", "Zebra", "Crocodile"};
+    public String random_names[] = {"Agust", "Jhosh", "Star", "Garfield", "Zaboo", "Nati", "Diego", "Gogi", "Lincon", "Asgard", "Tor", "Tony", "Rita", "Flofy", "Snop"};
 
-    public Animal(String ID, String Name, String Type) 
+    public int getRandomInt(int min, int max)
     {
-        this.ID = ID;;
-        this.Name = Name;
-        this.Type = Type;
+        return (int)(Math.random() * (max - min + 1)) + min;
     }
 
     // Overriding hashCode()
@@ -44,10 +43,20 @@ public class Animal implements Comparable
         return this.ID.compareTo(a.ID);
     }
 
+
+
     public void PrintAnimal(){
         System.out.println("ID: "+this.ID);
         System.out.println("Name: "+this.Name);
         System.out.println("Type: "+this.Type);
+        System.out.println("");
+    }
+
+    public void ShowOld(Animal OldAnimal)
+    {
+        System.out.println("Old ID: "+OldAnimal.ID+" -> New ID:"+this.ID);
+        System.out.println("Old Name: "+OldAnimal.Name+" -> New Name: "+this.Name);
+        System.out.println("Old Type: "+OldAnimal.Type+" -> New Type: "+this.Type);
         System.out.println("");
     }
 
@@ -56,31 +65,26 @@ public class Animal implements Comparable
         String OldName = this.Name;
         String OldType = this.Type;
 
-        int min = 0;
-        int max = random_names.length - 1;
-            
-        int index_one = (int)Math.floor(Math.random()*(max-min+1)+min);
-        int index_two = (int)Math.floor(Math.random()*(max-min+1)+min);
+        this.Name = random_names[getRandomInt(0,4)];
+        this.Type = random_types[getRandomInt(0,4)];
 
-        this.Name = random_names[index_one];
-        this.Type = random_types[index_two];
-
-        System.out.println("ID: "+this.ID);
+        System.out.println("ID: "+this.ID +"(Is Inmutable)");
         System.out.println("Old Name: "+this.Name+" -> New Name: "+OldName);
         System.out.println("Old Type: "+this.Type+" -> New Type: "+OldType);
         System.out.println("");
     }
 
-    public Animal(){
+    public Animal(String ID, String Name, String Type)
+    {
+        this.ID = ID;
+        this.Name = Name;
+        this.Type = Type;
+    }
 
-        int min = 0;
-        int max = random_names.length - 1;
-            
-        int index_one = (int)Math.floor(Math.random()*(max-min+1)+min);
-        int index_two = (int)Math.floor(Math.random()*(max-min+1)+min);
-
-        this.ID = Integer.toString(index_one);
-        this.Name = random_names[index_one];
-        this.Type = random_types[index_two];
+    public Animal()
+    {
+        this.ID = Integer.toString(getRandomInt(0,4));
+        this.Name = random_names[getRandomInt(0,4)];
+        this.Type = random_types[getRandomInt(0,4)];
     }
 }

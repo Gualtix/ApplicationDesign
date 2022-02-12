@@ -14,8 +14,8 @@ public class Demo
     String[] crud_options = 
     {   
         "1- Add",
-        "2- Remove",
-        "3- Update",
+        "2- Remove (Alway Remove the First Element)",
+        "3- Update (Alway Update the First Element)",
         "4- Iterate",
         "5- Return to Collection Menu"
     };
@@ -86,11 +86,9 @@ public class Demo
                 
                 option = scanner.nextInt();
                 if(scope.equals("collection")){
-                    //this.CollectionType = menu_options[option-1];
-                    //this.CollectionType = this.CollectionType.substring(3);
-                    //DT.CollectionType = this.CollectionType;
                     DT.CollectionType = menu_options[option-1].substring(3);
                     DT.CollectionType = DT.CollectionType.toUpperCase();
+                    DT.CollectionType = DT.CollectionType.replaceAll("\\s+","");
                 }
                 switch (option){
                     case 1: 
