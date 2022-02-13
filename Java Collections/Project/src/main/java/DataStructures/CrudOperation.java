@@ -110,7 +110,7 @@ enum CrudOperation {
         @Override
         public void add(Object Structure, Animal tmp) {
             Set Dt = (Set) Structure;
-            int cnt = Dt.size();
+            int cnt = Dt.size() + 1;
             tmp.ID = Integer.toString(cnt);
             Dt.add(tmp);
         }
@@ -122,9 +122,18 @@ enum CrudOperation {
                 System.out.println("Collection is empty!");
                 return;
             }
-            Animal Rm = (Animal) Dt.iterator().next();
-            Rm.PrintAnimal();
-            Dt.remove(index);
+
+            String Key = Integer.toString(Dt.size());
+            Animal An = null;
+            for(Object Obj : Dt){
+
+                An = (Animal) Obj;
+                if(An.ID.equals(Key)){
+                    An.PrintAnimal();
+                    break;
+                }
+            }
+            Dt.remove(An);
         }
 
         @Override
@@ -134,7 +143,19 @@ enum CrudOperation {
                 System.out.println("Collection is empty!");
                 return;
             }
-            tmp.PrintAnimal();
+
+            String Key = Integer.toString(1);
+            Animal OldAnimal = null;
+            for(Object Obj : Dt){
+
+                OldAnimal = (Animal) Obj;
+                if(OldAnimal.ID.equals(Key)){
+                    break;
+                }
+            }
+            tmp.ShowOld(OldAnimal);
+            tmp.ID = OldAnimal.ID;
+            Dt.remove(OldAnimal);
             Dt.add(tmp);
         }
 
@@ -155,6 +176,8 @@ enum CrudOperation {
         @Override
         public void add(Object Structure, Animal tmp) {
             PriorityQueue Dt = (PriorityQueue) Structure;
+            int cnt = Dt.size() + 1;
+            tmp.ID = Integer.toString(cnt);
             Dt.add(tmp);
         }
 
@@ -165,9 +188,9 @@ enum CrudOperation {
                 System.out.println("Collection is empty!");
                 return;
             }
-            Animal Rm = (Animal) Dt.iterator().next();
+            Animal Rm = (Animal) Dt.poll();
             Rm.PrintAnimal();
-            Dt.remove(index);
+
         }
 
         @Override
@@ -177,7 +200,10 @@ enum CrudOperation {
                 System.out.println("Collection is empty!");
                 return;
             }
-            tmp.PrintAnimal();
+   
+            Animal Rm = (Animal) Dt.poll();
+            Rm.ShowOld(tmp);
+            tmp.ID = Rm.ID;
             Dt.add(tmp);
         }
 
