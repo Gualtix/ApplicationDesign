@@ -29,7 +29,7 @@
                 </configuration>
             </plugin>
         </plugins>
-        <finalName>Project</finalName>
+        <finalName>JavaCollectionsDemo</finalName>
     </build>
     
 </project>
