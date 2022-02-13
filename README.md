@@ -9,7 +9,7 @@ including Assigments, Lectures, and Projects.
 - [Research Document](https://github.com/Gualtix/ApplicationDesign/blob/main/Java%20Collections/Document.md)
 - [Source Code](https://github.com/Gualtix/ApplicationDesign/tree/main/Java%20Collections/Project/src/main/java)
 - [CRUD Operations](https://github.com/Gualtix/ApplicationDesign/blob/main/Java%20Collections/Project/src/main/java/DataStructures/CrudOperation.java)
-- [Project Executable](https://github.com/Gualtix/ApplicationDesign/tree/main/Java%20Collections/Project/target/classes)
+- [Project Executable](https://github.com/Gualtix/ApplicationDesign/tree/main/Java%20Collections/Project/target)
 
 
 
